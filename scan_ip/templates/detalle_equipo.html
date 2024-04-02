@@ -1,0 +1,169 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <div style="text-align: center;">
+                        <hr>
+                        <h3>Hoja de Vida del Equipo {{equipo.manufacture}}-{{equipo.serial}}</h3>
+                        <hr>
+                    </div>
+                    <form action="{% url 'generar_pdf' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="text" value="{{equipo.id}}" id="equipo_id" name="equipo_id" hidden>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Nombre de Host</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="hostname" name="hostname"
+                                            value="{{equipo.hostname}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Sistema Operativo</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="so" name="so" value="{{equipo.so}}"
+                                            disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Arquitectura SO</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="archi" name="archi"
+                                            value="{{equipo.archi}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Fecha de Instalación</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="install_date" name="install_date"
+                                            value="{{equipo.install_date}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Fabricante</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="manufacture" name="manufacture"
+                                            value="{{equipo.manufacture}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Numero Serie</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="serial" name="serial"
+                                            value="{{equipo.serial}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Procesador</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="procesador" name="procesador"
+                                            value="{{equipo.procesador}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Memoria RAM</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="ram" name="ram"
+                                            value="{{equipo.ram}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Almacenamiento 1</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="storage1" name="storage1"
+                                            value="{{equipo.storage1}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Almacenamiento 2</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="storage2" name="storage2"
+                                            value="{{equipo.storage2}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Dirección IP</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="ipv4" name="ipv4"
+                                            value="{{equipo.ipv4}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Dirección MAC</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="dirmac" name="dirmac"
+                                            value="{{equipo.dirmac}}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <img src="{% url 'generar_qr' url='http://127.0.0.1:8000/public/equipo/detalle/views/'|add:equipo.hostname %}"
+                                        alt="qr-equipo-{{equipo.hostname}}" style="width: 210px; height: 185px;">
+
+                                    <a href="{% url 'generar_qr' url='http://127.0.0.1:8000/public/equipo/detalle/views/'|add:equipo.hostname %}"
+                                        download="qr-equipo-{{equipo.hostname}}.png" class="btn btn-primary"
+                                        style="margin-top: 10px;">
+                                        Descargar QR
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <button type="submit" class="btn btn-primary" id="show-info-btn">Descargar
+                                        Información</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{% static 'vendors/select2/select2.min.js' %}"></script>
+<script src="{% static 'js/file-upload.js' %}"></script>
+<script src="{% static 'js/typeahead.js' %}"></script>
+<script src="{% static 'js/select2.js' %}"></script>
+{% endblock %}

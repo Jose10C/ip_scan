@@ -1,0 +1,307 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es-PE">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTI-SCAN</title>
+    <!-- base:css -->
+    <link rel="stylesheet" href="{% static 'vendors/mdi/css/materialdesignicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendors/base/vendor.bundle.base.css' %}">
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" />
+</head>
+
+<body>
+    <!-- Contenido -->
+    <div class="container-scroller">
+        <!-- Inicio Menu -->
+        <div class="horizontal-menu">
+            <nav class="navbar top-navbar col-lg-12 col-12 p-0">
+                <div class="container-fluid">
+                    <div class="navbar-menu-wrapper d-flex align-items-center justify-content-between">
+                        <ul class="navbar-nav navbar-nav-left">
+                            {% if user.is_authenticated %}
+                            <li class="nav-item ms-0 me-5 d-lg-flex d-none">
+                                <a href="#" class="nav-link horizontal-nav-left-menu"><i
+                                        class="mdi mdi-format-list-bulleted"></i></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center"
+                                    id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+                                    <i class="mdi mdi-bell mx-0"></i>
+                                    <span class="count bg-success">2</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                                    aria-labelledby="notificationDropdown">
+                                    <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                                    <a class="dropdown-item preview-item">
+                                        <div class="preview-thumbnail">
+                                            <div class="preview-icon bg-success">
+                                                <i class="mdi mdi-information mx-0"></i>
+                                            </div>
+                                        </div>
+                                        <div class="preview-item-content">
+                                            <h6 class="preview-subject font-weight-normal">Application Error</h6>
+                                            <p class="font-weight-light small-text mb-0 text-muted">
+                                                Just now
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item preview-item">
+                                        <div class="preview-thumbnail">
+                                            <div class="preview-icon bg-warning">
+                                                <i class="mdi mdi-settings mx-0"></i>
+                                            </div>
+                                        </div>
+                                        <div class="preview-item-content">
+                                            <h6 class="preview-subject font-weight-normal">Settings</h6>
+                                            <p class="font-weight-light small-text mb-0 text-muted">
+                                                Private message
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item preview-item">
+                                        <div class="preview-thumbnail">
+                                            <div class="preview-icon bg-info">
+                                                <i class="mdi mdi-account-box mx-0"></i>
+                                            </div>
+                                        </div>
+                                        <div class="preview-item-content">
+                                            <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                                            <p class="font-weight-light small-text mb-0 text-muted">
+                                                2 days ago
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center"
+                                    id="messageDropdown" href="#" data-bs-toggle="dropdown">
+                                    <i class="mdi mdi-email mx-0"></i>
+                                    <span class="count bg-primary">4</span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                                    aria-labelledby="messageDropdown">
+                                    <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+                                    <a class="dropdown-item preview-item">
+                                        <div class="preview-thumbnail">
+                                            <img src="{% static 'images/faces/face4.jpg' %}" alt="image" class="profile-pic">
+                                        </div>
+                                        <div class="preview-item-content flex-grow">
+                                            <h6 class="preview-subject ellipsis font-weight-normal">David Grey
+                                            </h6>
+                                            <p class="font-weight-light small-text text-muted mb-0">
+                                                The meeting is cancelled
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item preview-item">
+                                        <div class="preview-thumbnail">
+                                            <img src="{% static 'images/faces/face2.jpg' %}" alt="image" class="profile-pic">
+                                        </div>
+                                        <div class="preview-item-content flex-grow">
+                                            <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
+                                            </h6>
+                                            <p class="font-weight-light small-text text-muted mb-0">
+                                                New product launch
+                                            </p>
+                                        </div>
+                                    </a>
+                                    <a class="dropdown-item preview-item">
+                                        <div class="preview-thumbnail">
+                                            <img src="{% static 'images/faces/face3.jpg' %}" alt="image" class="profile-pic">
+                                        </div>
+                                        <div class="preview-item-content flex-grow">
+                                            <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
+                                            </h6>
+                                            <p class="font-weight-light small-text text-muted mb-0">
+                                                Upcoming board meeting
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link count-indicator "><i
+                                        class="mdi mdi-message-reply-text"></i></a>
+                            </li>
+                            <li class="nav-item nav-search d-none d-lg-block ms-3">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="search">
+                                            <i class="mdi mdi-magnify"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Buscar" aria-label="search"
+                                        aria-describedby="search">
+                                </div>
+                            </li>
+                            {% else %}
+                            <li class="nav-item dropdown">
+                                <label for="title">OTI SCAN</label>
+                                <a href="/" class="nav-link horizontal-nav-left-menu"><i
+                                    class="mdi mdi-format-list-bulleted"></i></a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                            <a class="navbar-brand brand-logo" href="index.html">
+                                <a class="navbar-brand brand-logo-mini" href="index.html"><img
+                                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/OTI_logo.svg/1280px-OTI_logo.svg.png" alt="logo" /></a>
+                        </div>
+                        <ul class="navbar-nav navbar-nav-right">
+                            {% if user.is_authenticated %}
+                            <li class="nav-item nav-profile dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
+                                    id="profileDropdown">
+                                    <span class="nav-profile-name">{{ user.username }}</span>
+                                    <span class="online-status"></span>
+
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
+                                    aria-labelledby="profileDropdown">
+                                    <a class="dropdown-item">
+                                        <i class="mdi mdi-settings text-primary"></i>
+                                        Settings
+                                    </a>
+                                    <a href="/signout" class="dropdown-item">
+                                        <i class="mdi mdi-logout text-primary"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a href="/signin" class="dropdown-item">
+                                    <i class="mdi mdi-login-variant"></i>
+                                    Iniciar sesión
+                                </a>
+                            </li>
+                            {% endif %}
+                            
+                        </ul>
+                        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                            data-toggle="horizontal-menu-toggle">
+                            <span class="mdi mdi-menu"></span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+            {% if user.is_authenticated %}
+            <nav class="bottom-navbar">
+                <div class="container">
+                    <ul class="nav page-navigation">
+                        <li class="nav-item active">
+                            <a href="/home/" class="nav-link">
+                                <i class="mdi mdi-file-document-box menu-icon"></i>
+                                <span class="menu-title">Dashboard</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/scan_ip/" class="nav-link">
+                                <i class="mdi mdi-file-document-box menu-icon"></i>
+                                <span class="menu-title">Escaner IP</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/" class="nav-link">
+                                <i class="mdi mdi-file-document-box-outline menu-icon"></i>
+                                <span class="menu-title">Información IP</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/estado_ips/" class="nav-link">
+                                <i class="mdi mdi-chart-areaspline menu-icon"></i>
+                                <span class="menu-title">Estado de IP</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/lista_equipos/" class="nav-link">
+                                <i class="mdi mdi-finance menu-icon"></i>
+                                <span class="menu-title">Dispositivos</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/departamento/" class="nav-link">
+                                <i class="mdi mdi-finance menu-icon"></i>
+                                <span class="menu-title">Departamento</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/lista_ips/" class="nav-link">
+                                <i class="mdi mdi-grid menu-icon"></i>
+                                <span class="menu-title">IPS</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/responsable/" class="nav-link">
+                                <i class="mdi mdi-emoticon menu-icon"></i>
+                                <span class="menu-title">Responsable</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            {% endif%}
+        </div>
+        <!-- Fin Menu -->
+
+        <!-- Inicio Contenido -->
+        <div class="container-fluid page-body-wrapper">
+            <div class="main-panel">
+                <!-- Contenido dinámico -->
+                <div id="content">
+                    <div class="content-wrapper">
+                        {% block content %} {% endblock %}
+                    </div>
+                </div>
+
+                <!-- Inicio Footer -->
+                <footer class="footer">
+                    <div class="footer-wrap">
+                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © <a
+                                    href="#" target="_blank">OTI SCAN
+                                </a>2024</span>
+                            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Inicio <a
+                                    href="#" target="_blank"></a>
+                                </span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- Fin Footer -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Libreiras -->
+    <!-- base:js -->
+    <script src="{% static 'vendors/base/vendor.bundle.base.js' %}"></script>
+    <!-- inject:js -->
+    <script src="{% static 'js/template.js' %}"></script>
+    <!-- End plugin js for this page -->
+    <script src="{% static '/vendors/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static '/vendors/progressbar.js/progressbar.min.js' %}"></script>
+    <script src="{% static '/vendors/chartjs-plugin-datalabels/chartjs-plugin-datalabels.js' %}"></script>
+    <script src="{% static '/vendors/justgage/raphael-2.1.4.min.js' %}"></script>
+    <script src="{% static '/vendors/justgage/justgage.js' %}"></script>
+    <script src="{% static '/js/jquery.cookie.js' %}" type="text/javascript"></script>
+    <!-- Custom js for this page-->
+    <script src="{% static '/js/dashboard.js' %}"></script>
+</body>
+
+</html>

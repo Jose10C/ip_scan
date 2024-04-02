@@ -1,0 +1,64 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <form action="/departamento/guardar_depa/" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">Nombre de Departamento</label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre"
+                                        placeholder="Nombre de Departamento" value="{{departamento.nombre}}">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="">.</label>
+                                    <button type="submit" class="btn btn-primary form-control">Guardar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <hr>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>N°</th>
+                                <th>Departamento</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for depa in departamentos %}
+                            <tr>
+                                <td>{{ depa.id }}</td>
+                                <td>{{ depa.nombre }}</td>
+                                <td>
+                                    <a href="{% url 'editar_departamento' id=depa.id %}" class="btn btn-warning">Editar</a>
+                                    <a href="{% url 'eliminar_departamento' id=depa.id %}" class="btn btn-danger">Eliminar</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'vendors/select2/select2.min.js' %}"></script>
+<script src="{% static 'js/file-upload.js' %}"></script>
+<script src="{% static 'js/typeahead.js' %}"></script>
+<script src="{% static 'js/select2.js' %}"></script>
+{% endblock %}

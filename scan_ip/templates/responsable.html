@@ -1,0 +1,95 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <form action="/responsable/guardar/" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="">Nombre</label>
+                                        <input type="text" class="form-control" id="nombre" name="nombre"
+                                            placeholder="Nombre de Departamento">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="">Apellidos</label>
+                                        <input type="text" class="form-control" id="apellido" name="apellido"
+                                            placeholder="Apellido de Responsable">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="">Correo</label>
+                                        <input type="email" class="form-control" id="email" name="email"
+                                            placeholder="Correo de Responsable">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="">Departamento</label>
+                                        <select class="form-control" name="departamento" id="departamento">
+                                            {% for depa in departamentos %}
+                                            <option value="{{depa.id}}">{{depa.nombre}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="">.</label>
+                                        <button type="submit" class="btn btn-primary form-control">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Correo</th>
+                                <th>Departamento</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for respon in responsables %}
+                            <tr>
+                                <td>{{ respon.nombre }}</td>
+                                <td>{{ respon.apellido }}</td>
+                                <td>{{ respon.email }}</td>
+                                <td>{{ respon.departamento.nombre }}</td>
+                                <td>
+                                    <a href="{% url 'editar_responsable' id=respon.id %}"
+                                        class="btn btn-warning">Editar</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'vendors/select2/select2.min.js' %}"></script>
+<script src="{% static 'js/file-upload.js' %}"></script>
+<script src="{% static 'js/typeahead.js' %}"></script>
+<script src="{% static 'js/select2.js' %}"></script>
+{% endblock %}

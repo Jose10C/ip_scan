@@ -1,0 +1,64 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Hostname</th>
+                                <th>S.O.</th>
+                                <th>Arquit.</th>
+                                <th>Usuario</th>
+                                <th>Fecha Instal.</th>
+                                <th>Marca</th>
+                                <th>N° Serie</th>
+                                <th>Procesador</th>
+                                <th>M. RAM </th>
+                                <th>M. Almacen.</th>
+                                <th>M. Almacen.2</th>
+                                <th>Dir. IP</th>
+                                <th>Dir. MAC</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for device in equipos %}
+                            <tr>
+                                <td>{{ device.hostname }}</td>
+                                <td>{{ device.so }}</td>
+                                <td>{{ device.archi }}</td>
+                                <td>{{ device.user_name }}</td>
+                                <td>{{ device.install_date }}</td>
+                                <td>{{ device.manufacture }}</td>
+                                <td>{{ device.serial }}</td>
+                                <td>{{ device.procesador }}</td>
+                                <td>{{ device.ram }}</td>
+                                <td>{{ device.storage1 }}</td>
+                                <td>{{ device.storage2 }}</td>
+                                <td>{{ device.ipv4 }}</td>
+                                <td>{{ device.dirmac }}</td>
+                                <td><a href="http://127.0.0.1:8000/public/equipo/detalle/views/{{device.hostname}}" target="_blank" rel="noopener noreferrer">Ver QR</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'vendors/select2/select2.min.js' %}"></script>
+<script src="{% static 'js/file-upload.js' %}"></script>
+<script src="{% static 'js/typeahead.js' %}"></script>
+<script src="{% static 'js/select2.js' %}"></script>
+{% endblock %}

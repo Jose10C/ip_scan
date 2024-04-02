@@ -1,0 +1,153 @@
+{% extends "layout/base.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label for="ip">Segmento de IP:</label>
+                        <input type="text" class="form-control" id="ip" name="ip" placeholder="Ejemplo:192.168.1.1/24"
+                            value="192.168.1.1" required>
+                    </div>
+                    <div id="status-message">Pulsa el botón para iniciar el escaneo</div>
+                    <button type="button" class="btn btn-primary btn-rounded btn-fw" onclick="escanearRed()"
+                        id="escanear">Escanear de nuevo</button>
+                    <progress id="progress" max="100" style="width: 100%"></progress>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>IP</th>
+                                <th>Nombre de Host</th>
+                                <th>MAC</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ips-container">
+                        </tbody>
+                    </table>
+                    <!-- Botón para escanear de nuevo -->
+
+                    <script>
+                        function escanearRed() {
+                            var statusButton = document.getElementById('escanear');
+                            var statusMessage = document.getElementById('status-message');
+                            var ipsContainer = document.getElementById('ips-container');
+                            var progressBar = document.getElementById('progress');
+                            var ip = document.getElementById('ip').value;
+                            statusButton.disabled = true; // Deshabilitar el botón durante la ejecución
+                            ipsContainer.innerHTML = ''; // Limpiar las IPs anteriores
+                            statusMessage.textContent = 'Escaneando...'; // Mostrar el mensaje "Escaneando..."
+                            progressBar.value = 0; // Reiniciar el progreso
+                            var tiempoInicio = new Date().getTime(); // Obtener el tiempo de inicio de la búsqueda
+                    
+                            // Realizar la solicitud AJAX
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('GET', '/escanear_red_view/' + ip, true);
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === 4 && xhr.status === 200) {
+                                    var response = JSON.parse(xhr.responseText);
+                                    var dispositivos = response.ips;
+                                    var numDispositivos = dispositivos.length;
+                                    var progresoPorDispositivo = 100 / numDispositivos;
+                                    var progresoActual = 0;
+                    
+                                    dispositivos.forEach(function (dispositivo, index) {
+                                        var row = ipsContainer.insertRow();
+                                        var ipCell = row.insertCell(0);
+                                        var hostnameCell = row.insertCell(1);
+                                        var macCell = row.insertCell(2);
+                                        var actionCell = row.insertCell(3);
+                    
+                                        ipCell.textContent = dispositivo.ip;
+                                        hostnameCell.textContent = dispositivo.hostname;
+                                        macCell.textContent = dispositivo.mac;
+                    
+                                        var button = document.createElement('button');
+                                        button.textContent = 'Obtener Información';
+                                        button.className = 'btn btn-info btn-rounded btn-fw';
+                                        button.onclick = function () {
+                                            window.open('/info_equipo/' + dispositivo.ip, '_blank');
+                                        };
+                                        actionCell.appendChild(button);
+                    
+                                        progresoActual += progresoPorDispositivo;
+                                        progressBar.value = progresoActual; // Actualizar el progreso
+                                    });
+                    
+                                    // Habilitar el botón una vez que se haya completado el escaneo
+                                    statusButton.disabled = false;
+                                    // Cambiar el mensaje de estado una vez que se han mostrado todas las IPs
+                                    statusMessage.textContent = 'Escaneo finalizado';
+                                }
+                            };
+                            xhr.send();
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 
+<body>
+    <div id="status-message">Pulsa el botón para iniciar el escaneo...</div>
+    <div id="ips-container"></div>
+    <button onclick="escanearRed()" id="escanear">Escanear de nuevo</button> 
+
+    <script>
+        function escanearRed() {
+            var statusButton = document.getElementById('escanear');
+            var statusMessage = document.getElementById('status-message');
+            var ipsContainer = document.getElementById('ips-container');
+            statusButton.disabled = true; 
+            ipsContainer.innerHTML = ''; 
+            statusMessage.textContent = 'Escaneando...'; 
+            var tiempoInicio = new Date().getTime(); 
+            
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/escanear_red/', true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var ips = response.ips;
+
+                    function mostrarIP(index) {
+                        if (index < ips.length) {
+                            var p = document.createElement('p');
+                            var tiempoActual = new Date().getTime(); 
+                            var tiempoTranscurrido = (tiempoActual - tiempoInicio) / 1000; 
+                            p.textContent = ips[index].ip + ' - ' + ips[index].hostname + ' (Tiempo: ' + tiempoTranscurrido.toFixed(2) + ' segundos)';
+                            
+                            var boton = document.createElement('button');
+                            boton.textContent = 'Obtener Información';
+                            boton.onclick = function() {
+
+                                window.open('/info_equipo/' + ips[index].ip, '_blank');
+
+                            };
+                            p.appendChild(boton);
+                            
+                            ipsContainer.appendChild(p);
+                        }
+                        if (index < ips.length - 1) {
+                            setTimeout(function() {
+                                mostrarIP(index + 1);
+                            }, Math.random() * (2000 - 500) + 500);
+                        } else {
+                            statusButton.disabled = false;
+                            statusMessage.textContent = 'Escaneo finalizado';
+                        }
+                    }
+
+                    mostrarIP(0);
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</body> -->
+{% endblock %}

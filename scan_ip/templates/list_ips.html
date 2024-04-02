@@ -1,0 +1,46 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>IP</th>
+                                <th>MAC</th>
+                                <th>HOSTNAME</th>
+                                <th>ESTADO</th>
+                                <th>ACCIONES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ip_list in ips %}
+                            <tr>
+                                <td>{{ ip_list.ip }}</td>
+                                <td>{{ ip_list.mac }}</td>
+                                <td>{{ ip_list.hostname }}</td>
+                                <td>activo/desactivo</td>
+                                <td>ver</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="{% static 'vendors/select2/select2.min.js' %}"></script>
+<script src="{% static 'js/file-upload.js' %}"></script>
+<script src="{% static 'js/typeahead.js' %}"></script>
+<script src="{% static 'js/select2.js' %}"></script>
+{% endblock %}
